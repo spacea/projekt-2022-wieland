@@ -1,7 +1,7 @@
 library(shiny)
 
 shinyUI(fluidPage(
-  titlePanel("Moja pierwsza aplikacja"),
+  titlePanel("An app that will help you with resolving a crossword!"),
   sidebarLayout(
     sidebarPanel(
       p("Tutaj jest lewy panel")
@@ -9,8 +9,10 @@ shinyUI(fluidPage(
     ),
     mainPanel(
       br(),
-      p("Tutaj jest prawy panel"),
-      textInput(inputId = "word", label = "Type a word.")
-    )
+      
+      textInput(inputId = "language", label = "Choose a language. Type PL, EN lub GE: "),
+      textInput(inputId = "word", label = "Type down a word that you would like to guess. Where a letter is missing, enter a dot: ", placeholder = "Ex.: statis..cs"),
+      actionButton(inputId = "start", label = "Run", width = "300px")
+    ),
   )
 ))
