@@ -1,6 +1,7 @@
 library(shiny)
 
-ui <- fluidPage(
+ui = (navbarPage("An app about words",
+          tabPanel("Crossword Assistant",
   titlePanel("A function and statistics about words."),
 
 sidebarPanel(radioButtons(inputId = "choose_language", label = "Choose a language.", c("English" = "EN", "Polish" = "PL","German" = "GE")),
@@ -8,9 +9,10 @@ textInput("word_type_down", label = "Type down a word that you would like to gue
 # checkboxInput("report_y_or_n", "Create a .txt report"),
 actionButton("create_report", "Create a .txt report"),
 ),
-mainPanel(textOutput("txt"))
+mainPanel(textOutput("txt")),),
+tabPanel("Statistics"),
 )
-
+)
 
 
 
