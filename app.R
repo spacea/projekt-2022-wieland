@@ -1,8 +1,8 @@
 library(shiny)
-
-ui = (navbarPage("An app about words",
+# ui = (navbarPage("An app about words",
+ui = (navbarPage("",
           tabPanel("Crossword Assistant",
-  titlePanel("A function and statistics about words."),
+  titlePanel("This program will help you with resolving a crossword!"),
 
 sidebarPanel(radioButtons(inputId = "choose_language", label = "Choose a language.", c("English" = "EN", "Polish" = "PL","German" = "GE")),
 textInput("word_type_down", label = "Type down a word that you would like to guess. Where a letter is missing, enter a dot:"),
