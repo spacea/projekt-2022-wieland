@@ -1,31 +1,25 @@
 library(shiny)
 
 ui <- fluidPage(
-  
   titlePanel("A function and statistics about words."),
 
-radioButtons(inputId = "choose_language", label = "Choose a language.", c("English" = "EN", "Polish" = "PL","German" = "GE")),
+sidebarPanel(radioButtons(inputId = "choose_language", label = "Choose a language.", c("English" = "EN", "Polish" = "PL","German" = "GE")),
 textInput("word_type_down", label = "Type down a word that you would like to guess. Where a letter is missing, enter a dot:"),
-checkboxInput("report_y_or_n", "Create a .txt report"),
-actionButton("run_program", "Run the program"),
-textOutput("txt")
+# checkboxInput("report_y_or_n", "Create a .txt report"),
+actionButton("create_report", "Create a .txt report"),
+),
+mainPanel(textOutput("txt"))
 )
 
 
 
 
 server <- function(input, output, session) {
-    choose_language = reactive(switch  (input$choose_language,
-                   EN = rEN,
-                   PL = rPL,
-                   GE = rGE,
-                   ))
-    
+
   
-    
-  output$word_type_down = reactive( input$word_type_down)
+  output$word_type_down = reactive(input$word_type_down)
   
-  output$report_y_or_n = reactive(input$report_y_or_n)
+  output$create_report = reactive(input$create_report)
   
   output$choose_language = reactive(input$choose_language)
   
@@ -33,7 +27,7 @@ server <- function(input, output, session) {
   #   
     
     
-    results = function(language_input, word_input, report_input){
+    results = function(language_input, word_input){
       
       existence_pckg = require("stringr")
       if(existence_pckg == FALSE){
@@ -105,18 +99,7 @@ server <- function(input, output, session) {
       
       get_words = extracted_words
       
-      question = report_input
-      question = toupper(question)
-      first_word = extracted_words[1]
-      if(question == TRUE){
-        if(dir.exists("results") == FALSE){
-          dir.create("results")
-        }
-        # Nazwą pliku z raportem jest pierwsze słowo w zbiorze potencjalnych prawidłowych słów.
-        write.table(extracted_words, file = paste("results/", first_word, ".txt"), sep = "")
-        dir_return = paste(" Directory: results/", first_word, ".txt", sep = "")
-        
-      }
+
       
 
       return(extracted_words)
@@ -124,14 +107,26 @@ server <- function(input, output, session) {
       
     }
     
-    observeEvent(input$run_program, {
-      output$txt = renderText(print(results(input$choose_language ,input$word_type_down ,input$report_y_or_n)))
-    })
+    save_in_file = function(selected_words){
     
-
-
-
-  
+    first_word = selected_words[1]
+      if(dir.exists("results") == FALSE){
+        dir.create("results")
+      }
+      # Nazwą pliku z raportem jest pierwsze słowo w zbiorze potencjalnych prawidłowych słów.
+      write.table(selected_words, file = paste("results/", first_word, ".txt"), sep = "")
+      dir_return = paste(" Directory: results/", first_word, ".txt", sep = "")
+    
     }
-  
+    # observeEvent(input$run_program, {
+    #   output$txt = renderText(print(results(input$choose_language ,input$word_type_down ,input$report_y_or_n)))
+
+
+    output$txt = renderText(print(results(input$choose_language ,input$word_type_down)))
+
+    
+observeEvent(input$create_report, {
+  save_in_file(results(input$choose_language ,input$word_type_down))
+})
+}  
 shinyApp(ui, server)
