@@ -8,6 +8,7 @@ sidebarPanel(radioButtons(inputId = "choose_language", label = "Choose a languag
 textInput("word_type_down", label = "Type down a word that you would like to guess. Where a letter is missing, enter a dot:"),
 # checkboxInput("report_y_or_n", "Create a .txt report"),
 actionButton("create_report", "Create a .txt report"),
+textOutput("dir"),
 ),
 mainPanel(textOutput("txt")),),
 tabPanel("Statistics"),
@@ -120,6 +121,16 @@ server <- function(input, output, session) {
       dir_return = paste(" Directory: results/", first_word, ".txt", sep = "")
     
     }
+    
+    show_dir = function(selected_words){
+      
+      first_word = selected_words[1]
+      # Nazwą pliku z raportem jest pierwsze słowo w zbiorze potencjalnych prawidłowych słów.
+      dir_return = paste(" Directory: results/", first_word, ".txt", sep = "")
+      
+      return(dir_return)
+    }
+    
     # observeEvent(input$run_program, {
     #   output$txt = renderText(print(results(input$choose_language ,input$word_type_down ,input$report_y_or_n)))
 
@@ -129,6 +140,7 @@ server <- function(input, output, session) {
     
 observeEvent(input$create_report, {
   save_in_file(results(input$choose_language ,input$word_type_down))
-})
+  output$dir = renderText(print(show_dir(results(input$choose_language ,input$word_type_down))))
+  })
 }  
 shinyApp(ui, server)
