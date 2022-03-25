@@ -1,6 +1,9 @@
 library(shiny)
 # ui = (navbarPage("An app about words",
-ui = (navbarPage("",
+ui = fluidPage((tags$script(
+  "Shiny.addCustomMessageHandler('message', function(params) { alert(params); });")),
+  
+  navbarPage("",
           tabPanel("Crossword Assistant",
   titlePanel("This program will help you with resolving a crossword!"),
 
@@ -8,7 +11,9 @@ sidebarPanel(radioButtons(inputId = "choose_language", label = "Choose a languag
 textInput("word_type_down", label = "Type down a word that you would like to guess. Where a letter is missing, enter a dot:"),
 # checkboxInput("report_y_or_n", "Create a .txt report"),
 actionButton("create_report", "Create a .txt report"),
-textOutput("dir"),
+),
+singleton(
+  tags$head(tags$script(src = "message-handler.js"))
 ),
 mainPanel(textOutput("txt")),),
 tabPanel("Statistics"),
@@ -140,7 +145,14 @@ server <- function(input, output, session) {
     
 observeEvent(input$create_report, {
   save_in_file(results(input$choose_language ,input$word_type_down))
-  output$dir = renderText(print(show_dir(results(input$choose_language ,input$word_type_down))))
+
   })
-}  
+# Wyświetlanie ścieżki do pliku z zapisanymi wynikami
+  observeEvent(input$create_report,{
+    randomNumber <- runif(1,0,100)
+    session$sendCustomMessage("message", list(show_dir(results(input$choose_language ,input$word_type_down))))
+  })
+}
+
+
 shinyApp(ui, server)
