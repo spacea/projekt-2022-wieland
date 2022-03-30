@@ -40,3 +40,5 @@ report - Wartość TRUE oznacza, że do pliku txt. zostanie zapisany wynik funkc
 to_low - Wartość TRUE sprawia, że wszystkie wielkie litery w wektorze dictionary zostaną zamienione na małe. Ten argument przydaje się m.in. w przypadku słów niemieckich, ponieważ rzeczowniki w tym języku są rozpoczęte wielkimi literami. Niewykorzystanie tego argumentu może doprowadzić do otrzymania niepełnych wyników.
 
 PRZYKŁADY
+
+find_words(".orld", words, report = TRUE)
