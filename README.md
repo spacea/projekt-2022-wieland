@@ -21,9 +21,9 @@ w tej zakładce program pomaga uzytkownikowi w odgadnięciu danego słowa w krzy
 Statistics:
 
 
-# 5. Pakiet
+# 5. Funkcja
 
-Aby ułatwić korzystanie ze stworzonych przez zespół funkcji, postanowiliśmy stworzyć prosty pakiet. Jedną z funckji jest funkcja find_words, która pozwala na wydzielenie słów z danego zbioru wyrazów.
+W pliku fndwords.R znajduje się funckja, która pozwala na wydzielenie słów z danego zbioru wyrazów. Chcemy, aby była częścią pakietu, który zostanie stworzony w najbliższym czasie
 
 UŻYCIE
 
