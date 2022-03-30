@@ -12,9 +12,9 @@ Celem projektu było stworzenie aplikacji interaktywnej ułatwiającej rozwiązy
 
 Do prawidłowego wykonania programów potrzebny jest pakiet "stringr".
 
-# 4. Zakładki w aplikacji.
+# 4. Zakładki w aplikacji (app.R).
 
-Crossword Assistant (app.R):
+Crossword Assistant:
 
 w tej zakładce program pomaga uzytkownikowi w odgadnięciu danego słowa w krzyżówce. Po wybraniu języka, w którym jest odgadywane słowo, należy wpisać w pole tekstowe słowo, które chcemy odgadnąć. W miejsce liter, których użytkownik nie zna, należy wpisać kropki. Wielkość wpisywanych liter nie ma znaczenia. Po wypełnieniu pola tekstowego, po prawej stronie wyświetlą się wszystkie wyrazy, które potencjalnie mogą być odpowiedziami w krzyżówce. Po kliknięciu przycisku "Create a txt. report", w folderze results, który będzie się znajdował w folderze, w którym znajduje się plik app.R, zostanie utworzony plik txt. z wszystkimi otzymanymi wynikami. Nazwą pliku .txt zawsze jest pierwsze słowo, które pasuje do szablonu wpisanego w polu tekstowym. Ścieżka do pliku jest pokazywana pod przyciskiem po jego naciśnięciu.
 
