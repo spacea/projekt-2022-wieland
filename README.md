@@ -26,9 +26,11 @@ Statistics:
 Aby ułatwić korzystanie ze stworzonych przez zespół funkcji, postanowiliśmy stworzyć prosty pakiet. Jedną z funckji jest funkcja find_words, która pozwala na wydzielenie słów z danego zbioru wyrazów.
 
 UŻYCIE
+
 find_words(write_a_word, dictionary, report = FALSE, to_low = FALSE)
 
 ARGUMENTY
+
 write_a_word - Jako argument należy wpisać słowo, które chcemy odgadnąć. W miejsce liter, które nie są znane, należy wpisać kropki.
 
 dictionary - Jako argument należy podać obiekt, który jest wektorem, w którym znajdują się słowa.
