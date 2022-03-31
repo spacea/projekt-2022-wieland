@@ -1,10 +1,5 @@
 # jesli polskie znaki w komentarzach sie nie wyswietlaja: File -> Reopen with encoding (UTF-8)
 
-# Zbiór polskich słów pochodzi ze: 
-# Słownik SJP.PL - wersja do gier słownych
-# Słownik udostępniany na licencjach GPL 2 oraz
-# Creative Commons Attribution 4.0 International
-
 # sprawdzanie czy są zainstalowane pakiety
 pckg_installed = function(){
   existence_pckg = require("stringr")
@@ -73,7 +68,7 @@ return(words_together)
 
 # Polecenie do użytkownika. Ma wpisać słowo.
 user_input = function(){
-starting_word = readline(prompt = "Type down a word that you would like to guess. Where a letter is missing, enter a dot: ")
+starting_word = readline(prompt = "Type down a word that you would like to guess. Enter a dot in the place of the missing letter: ")
 starting_word = tolower(starting_word)
 return(starting_word)
 }
