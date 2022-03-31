@@ -6,13 +6,13 @@ Aleksander Wieland i Tymoteusz Tomala
 
 # 2. Wstęp.
 
-Celem projektu było stworzenie aplikacji interaktywnej ułatwiającej rozwiązywanie krzyżówek oraz pozwalającej na tworzenie diagramów na temat zbiorów słów występujących w trzech językach: polskim, niemieckim i angielskim.
+Celem projektu było stworzenie aplikacji interaktywnej ułatwiającej rozwiązywanie krzyżówek oraz pozwalającej na tworzenie diagramów na temat zbiorów słów występujących w trzech językach: polskim, niemieckim i angielskim. Aplikacja znajduje się w pliku app.R. Program w pliku crossword.R ma taką samą funkcjonalność jak aplikacja, jednak wszelka interakcja z programem odbywa się w konsoli.
 
 # 3. Potrzebne pakiety
 
 Do prawidłowego wykonania programów potrzebny jest pakiet "stringr".
 
-# 4. Zakładki w aplikacji.
+# 4. Zakładki w aplikacji (app.R).
 
 Crossword Assistant:
 
@@ -27,18 +27,18 @@ W pliku fndwords.R znajduje się funckja, która pozwala na wydzielenie słów z
 
 UŻYCIE
 
-find_words(write_a_word, dictionary, report = FALSE, to_low = FALSE)
+`find_words(write_a_word, dictionary, report = FALSE, to_low = FALSE)`
 
 ARGUMENTY
 
-write_a_word - Jako argument należy wpisać słowo, które chcemy odgadnąć. W miejsce liter, które nie są znane, należy wpisać kropki.
+`write_a_word` - Jako argument należy wpisać słowo, które chcemy odgadnąć. W miejsce liter, które nie są znane, należy wpisać kropki.
 
-dictionary - Jako argument należy podać obiekt, który jest wektorem, w którym znajdują się słowa.
+`dictionary` - Jako argument należy podać obiekt, który jest wektorem, w którym znajdują się słowa.
 
-report - Wartość TRUE oznacza, że do pliku txt. zostanie zapisany wynik funkcji. Ponadto utworzony zostanie folder results, w którym umieszczane będą wszystkie wyniki.
+`report` - Wartość TRUE oznacza, że do pliku txt. zostanie zapisany wynik funkcji. Ponadto utworzony zostanie folder results, w którym umieszczane będą wszystkie wyniki.
 
-to_low - Wartość TRUE sprawia, że wszystkie wielkie litery w wektorze dictionary zostaną zamienione na małe. Ten argument przydaje się m.in. w przypadku słów niemieckich, ponieważ rzeczowniki w tym języku są rozpoczęte wielkimi literami. Niewykorzystanie tego argumentu może doprowadzić do otrzymania niepełnych wyników.
+`to_low` - Wartość TRUE sprawia, że wszystkie wielkie litery w wektorze dictionary zostaną zamienione na małe. Ten argument przydaje się m.in. w przypadku słów niemieckich, ponieważ rzeczowniki w tym języku są rozpoczęte wielkimi literami. Niewykorzystanie tego argumentu może doprowadzić do otrzymania niepełnych wyników.
 
 PRZYKŁADY
 
-find_words(".orld", words, report = TRUE)
+`find_words(".orld", words, report = TRUE)`
