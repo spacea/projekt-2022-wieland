@@ -56,10 +56,15 @@ server <- function(input, output, session) {
       if(language == "PL"){
         
         if(file.exists("dictionaries/polish.txt") == FALSE){
-          download.file("http://czterycztery.pl/slowo/lista_frekwencyjna_z_odmianami/slowa.txt", "dictionaries/polish.txt")
+          download.file("https://sjp.pl/slownik/growy/sjp-20220313.zip", "dictionaries/polish.zip")
+          unzip("dictionaries/polish.zip", exdir = "dictionaries", overwrite = TRUE)
+          file.rename("dictionaries/slowa.txt" ,"dictionaries/polish.txt")
+          file.remove("dictionaries/polish.zip")
+          readLines("dictionaries/README.txt", encoding = "UTF-8")
           words_together = readLines("dictionaries/polish.txt", encoding = "UTF-8")
         }
         else if(file.exists("dictionaries/polish.txt") == TRUE){
+          readLines("dictionaries/README.txt", encoding = "UTF-8")
           words_together = readLines("dictionaries/polish.txt", encoding = "UTF-8")
         }
       }
