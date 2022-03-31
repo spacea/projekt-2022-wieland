@@ -6,7 +6,7 @@ Aleksander Wieland i Tymoteusz Tomala
 
 # 2. Wstęp.
 
-Celem projektu było stworzenie aplikacji interaktywnej ułatwiającej rozwiązywanie krzyżówek oraz pozwalającej na tworzenie diagramów na temat zbiorów słów występujących w trzech językach: polskim, niemieckim i angielskim. Aplikacja znajduje się w pliku app.R. Program w pliku crossword.R ma taką samą funkcjonalność jak aplikacja, jednak wszystko odbywa się tam w konsoli poleceń.
+Celem projektu było stworzenie aplikacji interaktywnej ułatwiającej rozwiązywanie krzyżówek oraz pozwalającej na tworzenie diagramów na temat zbiorów słów występujących w trzech językach: polskim, niemieckim i angielskim. Aplikacja znajduje się w pliku app.R. Program w pliku crossword.R ma taką samą funkcjonalność jak aplikacja, jednak wszelka interakcja z programem odbywa się w konsoli.
 
 # 3. Potrzebne pakiety
 
