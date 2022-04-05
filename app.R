@@ -2,18 +2,52 @@
 library(shiny)
 # install.packages("stringi")
 library(stringi)
+#install.packages("shinyFiles")
+library(shinyFiles)
 # ui = (navbarPage("An app about words",
-ui = fluidPage((tags$script(
+ui = fluidPage(
+  tags$head(
+    tags$style(HTML("
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap');
+        
+        body {
+        background-color: white;
+        color: black;
+        font-family: 'Dosis', sans-serif; font-size: 20px;
+        }
+        h2 {
+          font-family: 'Dosis', sans-serif; font-size: 35px;
+        }
+        .shiny-input-container{
+        font-family: 'Dosis', sans-serif;text-align: justify; font-size: 15px;
+        }
+
+ "))
+  ),
+  (tags$script(
   "Shiny.addCustomMessageHandler('message', function(params) { alert(params); });")),
   
   navbarPage("",
-             tabPanel("Crossword Assistant",
-                      titlePanel("This program will help you with resolving a crossword!"),
+    tabPanel("Crossword Assistant",
+    titlePanel("This program will help you with resolving a crossword!"),
+    br(),
                       
-                      sidebarPanel(radioButtons(inputId = "choose_language", label = "Choose a language.", c("English" = "EN", "Polish" = "PL","German" = "GE")),
-                                   textInput("word_type_down", label = "Type down a word that you would like to guess. Enter a dot in the place of the missing letter: "),
-                                   # checkboxInput("report_y_or_n", "Create a .txt report"),
-                                   actionButton("create_report", "Create a .txt report"),
+    sidebarPanel(radioButtons(inputId = "choose_language", label = "Choose a language.", c("English" = "EN", "Polish" = "PL","German" = "GE", "Your directory" = "dir_up")),
+
+                 shinyFilesButton("Btn_GetFile", "Choose a file" ,
+                                  title = "Please select a file:", multiple = FALSE,
+                                  buttonType = "default", class = NULL),
+                 
+                 
+                 verbatimTextOutput("txt_file"),
+                 textInput("txt_dir", "Paste the directory down below:", placeholder = "Directory..."),
+                 textInput("txt_encoding", "Encoding:", placeholder = "Ex.: UTF-8"),
+                 
+                 
+    textInput("word_type_down", label = "Type down a word that you would like to guess. Enter a dot in the place of the missing letter: ", placeholder = "Ex.: crossw.rd"),
+    br(),
+    # checkboxInput("report_y_or_n", "Create a .txt report"),
+    actionButton("create_report", "Create a .txt report"),
                       ),
                       singleton(
                         tags$head(tags$script(src = "message-handler.js"))
@@ -33,13 +67,25 @@ server <- function(input, output, session) {
   output$create_report = reactive(input$create_report)
   
   output$choose_language = reactive(input$choose_language)
+
+  output$txt_dir = reactive(input$txt_dir)
   
-  # output$txt = renderText({paste("Siema", input$choose_language)})
-  #   
+  output$txt_encoding = reactive(input$txt_encoding)
   
   
-  results = function(language_input, word_input){
+  volumes = getVolumes()
+  observe({  
+    shinyFileChoose(input, "Btn_GetFile", roots = volumes, session = session, filetypes=c('', 'txt'))
     
+    if(!is.null(input$Btn_GetFile)){
+      # browser()
+      file_selected<-parseFilePaths(volumes, input$Btn_GetFile)
+      output$txt_file <-  renderText(as.character(file_selected$datapath))
+    }
+  })
+  
+  results = function(language_input, word_input, file, encoding_file){
+
     existence_pckg = require("stringr")
     if(existence_pckg == FALSE){
       install.packages("stringr")
@@ -93,6 +139,10 @@ server <- function(input, output, session) {
         words_together = tolower(words_together)
       }
     }
+    else if(language == "DIR_UP"){
+      words_together = stri_read_lines(file, encoding = encoding_file)
+      words_together = tolower(words_together)
+    }
     
     starting_word = word_input
     starting_word = tolower(starting_word)
@@ -105,11 +155,7 @@ server <- function(input, output, session) {
     
     get_words = extracted_words
     
-    
-    
-    
     return(extracted_words)
-    
     
   }
   
@@ -138,19 +184,20 @@ server <- function(input, output, session) {
   #   output$txt = renderText(print(results(input$choose_language ,input$word_type_down ,input$report_y_or_n)))
   
   
-  output$txt = renderText(print(results(input$choose_language ,input$word_type_down)))
+  output$txt = renderText(print(results(input$choose_language ,input$word_type_down, input$txt_dir, input$txt_encoding)))
   
   
   observeEvent(input$create_report, {
-    save_in_file(results(input$choose_language ,input$word_type_down))
+    save_in_file(results(input$choose_language ,input$word_type_down, input$txt_dir, input$txt_encoding))
     
   })
   # Wyświetlanie ścieżki do pliku z zapisanymi wynikami
   observeEvent(input$create_report,{
     randomNumber <- runif(1,0,100)
-    session$sendCustomMessage("message", list(show_dir(results(input$choose_language ,input$word_type_down))))
+    session$sendCustomMessage("message", list(show_dir(results(input$choose_language ,input$word_type_down, input$txt_dir, input$txt_encoding))))
   })
+
+
+
 }
-
-
 shinyApp(ui, server)
