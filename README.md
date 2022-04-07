@@ -20,7 +20,7 @@ w tej zakładce program pomaga uzytkownikowi w odgadnięciu danego słowa w krzy
 
 Statistics:
 
-
+Program miałby za zadanie przedstawiać użytkownikowi dane informacyjne i statystyczne powiązane z głównym zadaniem aplikacji jakim jest pomoc w odgadnięciu danego słowa w krzyżówce. Użytkownik otrzymywałby informacje w postaci wykresów, które przdstawiałyby dla przykładu ogólną liczbę słów na daną literę występujących w danym języku uprzednio przez nas wybranym. 
 # 5. Funkcja
 
 W pliku fndwords.R znajduje się funckja, która pozwala na wydzielenie słów z danego zbioru wyrazów. Chcemy, aby była częścią pakietu, który zostanie stworzony w najbliższym czasie
